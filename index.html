@@ -81,11 +81,10 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="row">
           <div class="col-lg-12 text-center">
-             <!-- <input type="text" class="form-control" id="tokenfield-typeahead" value="red,green,blue" /> -->
-            <input type="text" data-provide="typeahead">
+            <input type="text" class="form-control" id="tokenfield" value="red,green,blue" />
           </div>
         </div>
 
@@ -101,14 +100,23 @@
     <!-- Bootstrap Typeahead -->
     <script src="js/bootstrap3-typeahead.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js">
-    $('#tokenfield').tokenfield({
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <script>
+
+    $(function() {
+    //Tokenfield
+
+    $('#tokenfield-jQUI').tokenfield({
       autocomplete: {
         source: ['red','blue','green','yellow','violet','brown','purple','black','white'],
         delay: 100
+
       },
       showAutocompleteOnFocus: true
-    })
+
+    });
+    });
     </script>
 
 
