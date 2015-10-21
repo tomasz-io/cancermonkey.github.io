@@ -1,3 +1,26 @@
+<?php
+$url = 'https://api.parse.com/1/functions/hello';
+$appId = 'XYVa8aop9gJj7A7GC4Rl5KELXIJCOD2dceWu1QhP';
+$restKey = 'jxxaxaNj0avTQXQPH51DLT8f3vXRRqPBLm6ssiuY';
+$headers = array(
+ "Content-Type: application/json",
+ "X-Parse-Application-Id: " . $appId,
+ "X-Parse-REST-API-Key: " . $restKey
+);
+$objectData = '{"name":"Adarsh", "age":"26"}';
+$rest = curl_init();
+curl_setopt($rest,CURLOPT_URL,$url);
+curl_setopt($rest,CURLOPT_POST,1);
+curl_setopt($rest,CURLOPT_POSTFIELDS,$objectData);
+curl_setopt($rest,CURLOPT_HTTPHEADER,$headers);
+curl_setopt($rest,CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($rest,CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($rest);
+echo $response;
+print_r($response);
+curl_close($rest);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,17 +99,15 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h1>Evaluator Questionnaire</h1>
-                <ul class="list-unstyled">
-                    <li>Bootstrap v3.3.1</li>
-                    <li>jQuery v1.11.1</li>
-                </ul>
             </div>
         </div>
 
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
-            <p class="lead">List all the tags relevant to your area of expertise. The more tags you provide, the better we can select the right startups for you!</p>
-            <input type="text" class="form-control" id="tokenfield" value="red,green,blue" />
+            <p class="lead"><?php echo $response ?></p>
+
+
+
           </div>
         </div>
 
