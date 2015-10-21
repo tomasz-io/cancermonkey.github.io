@@ -16,9 +16,25 @@ curl_setopt($rest,CURLOPT_HTTPHEADER,$headers);
 curl_setopt($rest,CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($rest,CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($rest);
-echo $response;
-print_r($response);
+$decoded = json_decode($response, true);
+//$first = array_shift($decoded);
 curl_close($rest);
+
+
+print_r(array_values($decoded)[0]);
+
+echo json_last_error();
+
+$jsonIterator = new RecursiveIteratorIterator(
+    new RecursiveArrayIterator(json_decode($response, TRUE)),
+    RecursiveIteratorIterator::SELF_FIRST);
+
+foreach ($jsonIterator as $key => $val) {
+    echo "<tr><td>$key</td><td>$val</td></tr>";
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -104,8 +120,28 @@ curl_close($rest);
 
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
-            <p class="lead"><?php echo $response ?></p>
+            <p class="lead"><?php echo $first ?></p>
 
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th data-field="name">Startup Name</th>
+                        <th data-field="id">Application ID</th>
+                    </tr>
+
+                    <?php
+
+                    $jsonIterator = new RecursiveIteratorIterator(
+                        new RecursiveArrayIterator(array_values($decoded)[0]),
+                        RecursiveIteratorIterator::SELF_FIRST);
+
+                    foreach ($jsonIterator as $key => $val) {
+                        echo "<tr><td>$key</td><td>$val</td></tr>";
+                    }
+                    ?>
+
+                </thead>
+            </table>
 
 
           </div>
